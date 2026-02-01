@@ -24,3 +24,30 @@ Output:
 Explanation: Insert 3 at position 3, elements [4,5,6] shift right
 */
 
+#include <stdio.h>
+
+int main() {
+    int n, pos, x;
+    printf("Enter the size of array: \n");
+    if 
+    (scanf("%d", &n) != 1) return 0;
+    int arr[n + 1];
+    for (int i = 0; i < n; i++) {
+    printf("Enter The elements: \n");
+        scanf("%d", &arr[i]);
+    }
+    printf("Enter The Position: \n");
+    scanf("%d", &pos);
+    printf("Enter the number to be added  : \n");
+    scanf("%d", &x);
+    
+    for (int i = n; i >= pos; i--) {
+        arr[i] = arr[i - 1];
+    }
+    arr[pos - 1] = x;
+    for (int i = 0; i <= n; i++) {
+        printf("%d%s", arr[i], (i == n) ? "" : " ");
+    }
+    printf("\n");
+    return 0;
+}
