@@ -21,25 +21,34 @@ Comparisons = 3
 
 Explanation: Compared with 10, 20, 30 (found at index 2 with 3 comparisons)   
 */
-  def linear_search():
-    # Input handling
-    try:
-        n = int(input().strip())
-        arr = list(map(int, input().split()))
-        k = int(input().strip())
-    except ValueError:
-        return
-    comparisons = 0
-    found_index = -1
-    for i in range(n):
-        comparisons += 1
-        if arr[i] == k:
-            found_index = i
-            break
-    if found_index != -1:
-        print(f"Found at index {found_index}")
-    else:
-        print("Not Found")
-    print(f"Comparisons = {comparisons}")
-if __name__ == "__main__":
-    linear_search()
+  #include <stdio.h>
+
+    int main() {
+    int n, k, i;
+    int comparisons = 0;
+    int foundIndex = -1;
+    if (scanf("%d", &n) != 1) return 0;
+
+    int arr[n];
+    for (i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+    scanf("%d", &k);
+
+    for (i = 0; i < n; i++) {
+        comparisons++; 
+        if (arr[i] == k) {
+            foundIndex = i;
+            break; 
+        }
+    }
+
+    if (foundIndex != -1) {
+        printf("Found at index %d\n", foundIndex);
+    } else {
+        printf("Not Found\n");
+    }
+    printf("Comparisons = %d\n", comparisons);
+
+    return 0;
+}
