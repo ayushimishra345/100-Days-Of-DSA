@@ -23,3 +23,49 @@ Output:
 
 Explanation: Compare the next unprocessed arrival time from both logs and append the earlier one to the final log until all entries are processed
 /*
+
+
+  
+#include <stdio.h>
+#include <stdlib.h>
+
+void merge_logs() {
+    int p, q;
+    if (scanf("%d", &p) != 1) return;
+    int log1[p];
+    for (int i = 0; i < p; i++) {
+        scanf("%d", &log1[i]);
+    }
+
+    if (scanf("%d", &q) != 1) return;
+    int log2[q];
+    for (int i = 0; i < q; i++) {
+        scanf("%d", &log2[i]);
+    }
+
+    int i = 0, j = 0;
+
+    while (i < p && j < q) {
+        if (log1[i] <= log2[j]) {
+            printf("%d ", log1[i]);
+            i++;
+        } else {
+            printf("%d ", log2[j]);
+            j++;
+        }
+    }
+    while (i < p) {
+        printf("%d ", log1[i]);
+        i++;
+    }
+
+    while (j < q) {
+        printf("%d ", log2[j]);
+        j++;
+    }
+    printf("\n");
+}
+int main() {
+    merge_logs();
+    return 0;
+}
