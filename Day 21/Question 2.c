@@ -18,3 +18,16 @@ Input: head = [1,2,3,4,5,6]
 Output: [4,5,6]
 Explanation: Since the list has two middle nodes with values 3 and 4, we return the second one.
 */
+
+
+struct ListNode* middleNode(struct ListNode* head) {
+    struct ListNode *slow = head;
+    struct ListNode *fast = head;
+    
+    while (fast != NULL && fast->next != NULL) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    
+    return slow;
+}
