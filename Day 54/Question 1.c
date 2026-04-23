@@ -1,1 +1,106 @@
 
+#include <stdio.h>
+#include <stdlib.h>
+
+// Node structure
+struct Node {
+    int data;
+    struct Node *left, *right;
+};
+
+// Create node
+struct Node* newNode(int val) {
+    struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+    node->data = val;
+    node->left = node->right = NULL;
+    return node;
+}
+
+// Build tree from level order
+struct Node* buildTree(int arr[], int n) {
+    if (n == 0 || arr[0] == -1)
+        return NULL;
+
+    struct Node* root = newNode(arr[0]);
+
+    struct Node* queue[n];
+    int front = 0, rear = 0;
+
+    queue[rear++] = root;
+    int i = 1;
+
+    while (i < n && front < rear) {
+        struct Node* curr = queue[front++];
+
+        if (i < n && arr[i] != -1) {
+            curr->left = newNode(arr[i]);
+            queue[rear++] = curr->left;
+        }
+        i++;
+
+        if (i < n && arr[i] != -1) {
+            curr->right = newNode(arr[i]);
+            queue[rear++] = curr->right;
+        }
+        i++;
+    }
+
+    return root;
+}
+
+// Zigzag traversal
+void zigzagTraversal(struct Node* root) {
+    if (!root) return;
+
+    struct Node* queue[1000];
+    int front = 0, rear = 0;
+
+    queue[rear++] = root;
+
+    int leftToRight = 1;
+
+    while (front < rear) {
+        int size = rear - front;
+
+        int level[1000];
+
+        // collect current level
+        for (int i = 0; i < size; i++) {
+            struct Node* curr = queue[front++];
+
+            level[i] = curr->data;
+
+            if (curr->left)
+                queue[rear++] = curr->left;
+            if (curr->right)
+                queue[rear++] = curr->right;
+        }
+
+        // print based on direction
+        if (leftToRight) {
+            for (int i = 0; i < size; i++)
+                printf("%d ", level[i]);
+        } else {
+            for (int i = size - 1; i >= 0; i--)
+                printf("%d ", level[i]);
+        }
+
+        leftToRight = !leftToRight;
+    }
+}
+
+int main() {
+    int N;
+    scanf("%d", &N);
+
+    int arr[N];
+    for (int i = 0; i < N; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    struct Node* root = buildTree(arr, N);
+
+    zigzagTraversal(root);
+
+    return 0;
+}
